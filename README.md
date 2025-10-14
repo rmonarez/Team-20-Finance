@@ -28,3 +28,4 @@ The following deliverables must be submitted:
    - Abstract (Include the project dataset link)
    - Expected Contributions.
 Ruben: I will be working on analyzing code and production visualizations. I will also help building the streamlit application.
+Emily: I will be working on writing analysis code and producing visualizations

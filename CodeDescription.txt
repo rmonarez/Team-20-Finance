@@ -1,0 +1,53 @@
+Data Visualization
+Figure 1:
+	Shows the daily percentage change of the Index (Index_Change_Percent) over time
+	Gray Line:
+		Represents the daily return (percentage change) of the financial index
+	Red Dashed Line: This is the Crash Threshold:
+		(CRASH_THRESHOLD_DAILY = -5.0%). Any daily drop that touches or crosses
+		this line if defined as a "crash"
+	Large Red Dots: 
+		These dots specifically highlight the days where the daily return was less than or equal to the -5.0 threshold
+	
+Figure 2:
+	Second plot is a model performance diagnostic. Tells you how well your neural network
+	(the LSTM) is learning from the data during the training process
+	Shows: 
+		How the model's error (loss) changes over each training epoch (full pass through the training data)
+	Blue Line (Training loss):
+		Represents the error measured on the data the model is activley learning from (training set).
+		Will decrease steadily.
+	Orange Line (Val Loss):
+		Represents the error measured on a small, reserved subset of the training data (the validation set).
+		The model has not seen this data before.
+			In an ideal scenario:
+				Both lines decrease and flatten out close to each other
+			Overfitting:
+				If the blue line keeps droppping but the orange line starts increasing,
+				it means the model is memorizing the training data instead of learning general rules, which is called overfitting
+			Early Stopping: 
+				Model uses 'Early Stopping' callback, meaning the training stops automatically if the validation loss
+				for not improve for 5 epoch (patience = 5) ensuring the model doesn't overfitting
+	If the lines look smooth and decreating, the model is training correctly and efficiently. If not, adjustments to me made
+	
+Optimal Prediction Threshold:
+	Crash events are rare, 10% might be considered a high warning. So searching for a balance between catching crashes. False alarms = 'F1-score'
+	Example:
+		If it says 'Optimal Prediction Threshold: 0.1500' the model considers any prediction above 
+		15% to be a "crash warning"
+Classification Report:
+	Recall in Class 1:
+		Out of all the future crashes that actually happened, how many did it predict?
+		A high recall (0.85) means the model is good at giving warnings for real danger.
+	Precision for Class 1:
+		Out of all the times the model predicted a crash, how many times was it correct. 
+		Low precision means too many false alarms\
+Top 10 Highest predicted crash probabilities:
+	This is the real-world output. Shows dates where the model had the highest confidence (PredCrashProb)
+	that a crash would occur within the next 10 days (CRASH_HORIZON).
+	This is what you would use to make a decision to reduce risk.
+Final Output:
+	Most valuable output is the table showing the highest predicted crash probabilites
+		This table gives the dates where the market is currently exhibiting the strongest historical patterns that lean to a crash
+		By looking at the highest scores, any user can quickly see when the risk level is dangerously high, 
+		allowing for proactive derisking actions within 10 day window
